@@ -11,7 +11,7 @@
   },
   "scripts": {
     "start": "live-server",
-    "compile": "tsc ./src/index.ts"
+    "compile": "tsc ./src/index.ts -w"
   },
   "author": "",
   "license": "ISC"
