@@ -53,11 +53,20 @@ class Vendor<C extends Credentiall = Credentiall, AB extends AllowedBusiness = A
 interface Ability {
   cleanUp(): void
 }
-const superVendor = <T extends new (...args: any[]) => Vendor>(Base: T) =>
-  class extends Base {
+function debounce(delay: number): Function {
+  return () => {
+    // todo
+    setTimeout(() => {
+      console.log('I was called')
+    }, delay)
+  }
+}
+const superVendor = <T extends new (...args: any[]) => Vendor>(Base: T) => {
+  class SuperVendor extends Base {
     constructor(...arg: any[]) {
       super(...arg)
     }
+    @debounce(2000)
     cleanUp(): void {}
     set pick(herb: any) {
       for (let i = 0; i < 15; i++) {
@@ -66,7 +75,8 @@ const superVendor = <T extends new (...args: any[]) => Vendor>(Base: T) =>
       this.gov.nofity(this)
     }
   }
-
+  return SuperVendor
+}
 const SuperVendor = superVendor(Vendor)
 const mine = new Vendor<string, '💰'>('10100', new Government())
 let sVen = new SuperVendor<string, '💰'>('10100', new Government())
