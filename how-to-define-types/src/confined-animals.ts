@@ -10,21 +10,25 @@ const ecosystem = {
   bear: '🐻',
 } as const
 type Thing  = typeof ecosystem[keyof typeof ecosystem]  //3 抽取值类型
-type Flower  = Extract<Thing, "🌷">   //4 可用类型
+type Flower  = Extract<Thing, "🌷"|"🌸">   //4 可用类型
+type Allowed  = Flower | "💰"
+
+type Constructor<T extends {bag: any[]} > = new(...args: any[]) => T;
+
 // type Flower  = Extract<Thing, "🌷">   //5 可用政府只允许你采郁金香
 //2、 我是一个小贩需要采药为生
-class Government{
-  nofity(person: Vendor){
+class Government<T extends Allowed>{
+  nofity(person: Vendor<T>){
      console.log(person.bag);
   }
 }
-class Vendor {
+class Vendor<T extends Allowed ="🌷" > {
   private gov = new Government()
-  constructor(public bag: Flower[] = []) {
+  constructor(public bag: T[] = []) {
      
   }
   
-  set pick(herb: Flower) {
+  set pick(herb: T) {
     //采药
     this.bag.push(herb)
    this.gov.nofity(this)
@@ -38,14 +42,14 @@ class Vendor {
   }
 }
 
-let me = new Vendor()
+let me = new Vendor<'💰'>()
+ 
+me.pick = '💰'
 
-me.pick = '🌷'
+let mary = new Vendor<Flower>()
 
-let mary = new Vendor()
-
-me.pick = '🌷'
-
+mary.pick="🌷"
+mary.pick="🌸"
 
 console.log(me)
 
