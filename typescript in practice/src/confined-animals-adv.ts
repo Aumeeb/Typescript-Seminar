@@ -97,3 +97,16 @@
 
 // // type AnimalObject = typeof PickHerbs extends (...args: any) => infer R ? R : never
 // // type AnimalUnion = AnimalObject[keyof AnimalObject]
+const ecosystem = {
+  biCactus: '🌵🌵',
+  shamrock: '☘️',
+  whiteFlower: '🌸',
+  tulip: '🌷',
+  fish: '🐠',
+  Blowfish: '🐡',
+  rabbit: '🐰',
+} as const
+const underground = {
+  mine: '🧱',
+  gold: '💰',
+} as const
