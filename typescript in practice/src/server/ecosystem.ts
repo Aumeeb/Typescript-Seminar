@@ -1,5 +1,5 @@
 export = [
-  {symbol: '🌵🌵', price: 10},
+  {symbol: '🌵🌵', price: 10, quantity: 200},
   {symbol: '🌵', price: 5},
   {symbol: '☘️', price: 3},
   {symbol: '🌸', price: 7},
