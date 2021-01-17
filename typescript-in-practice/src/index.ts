@@ -6,6 +6,11 @@ console.clear()
 
 type Ecosystem = ExtractSpecificValueFromArray<typeof ecosystem, Nature>
 type Treasure = ExtractSpecificValueFromArray<typeof treasure, Nature>
+type Alive = Extract<Ecosystem, '🐰' | '🐡'>
+type Legal = Alive | Treasure
+interface INotifyable {
+  notify(citizen: Human): void
+}
 
 abstract class Human<T = unknown> implements Item<T> {
   get length() {
@@ -22,31 +27,32 @@ abstract class Human<T = unknown> implements Item<T> {
   protected abstract currency: Currency
 }
 
-class Vendor extends Human {
-  gov = new FinanceDepartment()
-  constructor(protected currency: Currency, protected cash: number = 100) {
+class Vendor<T = Alive> extends Human {
+  private gov: INotifyable
+  constructor(protected currency: Currency, protected cash: number = 100, gov: INotifyable) {
     super()
+    this.gov = gov
   }
-  public set pick(item: unknown) {
+  public set pick(item: T) {
     this.items.push(item)
     this.gov.notify(this)
   }
 }
 
-class Government {
+class Government implements INotifyable {
   notify(citizen: Vendor) {
     console.log('🪴', citizen.getItems())
   }
 }
-class FinanceDepartment {
+class FinanceDepartment implements INotifyable {
   notify(citizen: Vendor) {
     console.log('🏵️', citizen.length)
   }
 }
-const me = new Vendor('USD', 0)
+const me = new Vendor<Legal>('USD', 0, new FinanceDepartment())
+const you = new Vendor<'🐰'>('RMB', 0, new FinanceDepartment())
 
-me.pick = '1232'
-me.pick = '12'
-me.pick = 'boolean'
-me.pick = 'boolean'
-// console.log(me.getItems())
+me.pick = me.pick = '🐰'
+me.pick = '💎'
+console.log()
+you.pick = '🐰'
