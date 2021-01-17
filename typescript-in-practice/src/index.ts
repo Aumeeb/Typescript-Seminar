@@ -17,11 +17,10 @@ class Vendor extends Human {
   constructor(public currency: Currency, public cash: number = 100) {
     super()
   }
-  public set pick(item:unknown){
+  public set pick(item: unknown) {
     this.items.push(item)
   }
 }
 
 const me = new Vendor('USD', 0)
-
-
+console.log(me)
