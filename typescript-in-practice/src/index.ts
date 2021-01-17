@@ -3,7 +3,7 @@ import treasure from './data/treasure'
 import type {Currency, ExtractSpecificValueFromArray, Item, Nature} from './types'
 
 console.clear()
-
+//#region  types
 type Ecosystem = ExtractSpecificValueFromArray<typeof ecosystem, Nature>
 type Treasure = ExtractSpecificValueFromArray<typeof treasure, Nature>
 type Alive = Extract<Ecosystem, '🐰' | '🐡'>
@@ -11,7 +11,7 @@ type Legal = Alive | Treasure
 interface INotifyable {
   notify(citizen: Human): void
 }
-
+//#endregion
 abstract class Human<T = unknown> implements Item<T> {
   get length() {
     return this.items.length
@@ -27,8 +27,8 @@ abstract class Human<T = unknown> implements Item<T> {
   protected abstract currency: Currency
 }
 
-class Vendor<T = Alive> extends Human {
-  private gov: INotifyable
+class Vendor<T = Alive> extends Human<T> {
+  protected gov: INotifyable
   constructor(protected currency: Currency, protected cash: number = 100, gov: INotifyable) {
     super()
     this.gov = gov
@@ -38,7 +38,18 @@ class Vendor<T = Alive> extends Human {
     this.gov.notify(this)
   }
 }
+const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
+  class extends Base {
+    constructor(...arg: any[]) {
+      super(...arg)
+    }
+    set pick(item: S) {
+      for (let i = 0; i < 15; i++) this.items.push(item)
+      this.gov.notify(this)
+    }
+  }
 
+//#region  gov
 class Government implements INotifyable {
   notify(citizen: Vendor) {
     console.log('🪴', citizen.getItems())
@@ -49,10 +60,17 @@ class FinanceDepartment implements INotifyable {
     console.log('🏵️', citizen.length)
   }
 }
+//#endregion
 const me = new Vendor<Legal>('USD', 0, new FinanceDepartment())
 const you = new Vendor<'🐰'>('RMB', 0, new FinanceDepartment())
 
+const superman = new (superVendor(Vendor))<'💰'>('RMB', 200, new FinanceDepartment())
+
 me.pick = me.pick = '🐰'
 me.pick = '💎'
-console.log()
+
 you.pick = '🐰'
+you.pick = '🐰'
+
+superman.pick = '💰'
+console.log(superman.getItems())
