@@ -28,13 +28,15 @@ abstract class Human<T = unknown> implements Item<T> {
 }
 
 class Vendor<T = Alive> extends Human<T> {
+  *[Symbol.iterator]() {
+    for (let i = 0; i < this.length; i++) {
+      yield `${this.currency} ${this.items[0]}`
+    }
+  }
   protected gov: INotifyable
   constructor(protected currency: Currency, protected cash: number = 100, gov: INotifyable) {
     super()
     this.gov = gov
-  }
-  cleanUp(): void {
-    this.items = []
   }
   public set pick(item: T) {
     this.items.push(item)
@@ -45,6 +47,9 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
   class extends Base {
     constructor(...arg: any[]) {
       super(...arg)
+    }
+    cleanUp(): void {
+      this.items = []
     }
     set pick(item: S) {
       for (let i = 0; i < 15; i++) this.items.push(item)
@@ -78,3 +83,4 @@ you.pick = '🐰'
 
 superman.pick = '💰'
 console.log(superman.getItems())
+console.log(...superman)
