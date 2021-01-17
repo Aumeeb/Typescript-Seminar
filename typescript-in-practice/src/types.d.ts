@@ -6,6 +6,7 @@ export type ExtractSpecificValueFromArray<
 > = T[number][K] extends infer R ? (R extends number | string ? R : 'Lack of properties') : never
 export type Currency = 'USD' | 'RMB'
 
-interface Item<T> {
-  public getItems(): T[]
+interface Item<T = unknown> {
+  getItems(): T[]
+  length: number
 }
