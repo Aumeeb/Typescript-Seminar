@@ -49,7 +49,7 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
     cleanUp(): void {
       this.items = []
     }
-    set pick(item: S) {
+    public set pick(item: S) {
       for (let i = 0; i < 15; i++) this.items.push(item)
       this.gov.notify(this)
     }
