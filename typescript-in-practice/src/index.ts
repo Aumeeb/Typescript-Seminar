@@ -33,6 +33,9 @@ class Vendor<T = Alive> extends Human<T> {
     super()
     this.gov = gov
   }
+  cleanUp(): void {
+    this.items = []
+  }
   public set pick(item: T) {
     this.items.push(item)
     this.gov.notify(this)
