@@ -1,5 +1,7 @@
 export = [
-  {symbol: '💎', price: 10000},
-  {symbol: '🔮', price: 20000},
-  {symbol: '👑', price: 50000},
+  {symbol: '💎', price: 1_000},
+  {symbol: '🔮', price: 200},
+  {symbol: '👑', price: 500},
+  {symbol: '🧱', price: 5},
+  {symbol: '💰', price: 100},
 ] as const

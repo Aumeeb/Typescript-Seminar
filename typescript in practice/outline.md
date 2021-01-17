@@ -1,3 +1,4 @@
+```typescript
 //1. 首先我们来建立一个生态圈
 const ecosystem = {
 biCactus: '🌵🌵',
@@ -66,3 +67,5 @@ you.pick=
 
 you
 me
+
+```
