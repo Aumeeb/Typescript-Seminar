@@ -29,9 +29,7 @@ abstract class Human<T = unknown> implements Item<T> {
 
 class Vendor<T = Alive> extends Human<T> {
   *[Symbol.iterator]() {
-    for (let i = 0; i < this.length; i++) {
-      yield `${this.currency} ${this.items[0]}`
-    }
+    for (let i = 0; i < this.length; i++) yield this.items[i]
   }
   protected gov: INotifyable
   constructor(protected currency: Currency, protected cash: number = 100, gov: INotifyable) {
@@ -60,7 +58,7 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
 //#region  gov
 class Government implements INotifyable {
   notify(citizen: Vendor) {
-    console.log('🪴', citizen.getItems())
+    console.log('🍁', ...citizen)
   }
 }
 class FinanceDepartment implements INotifyable {
@@ -69,10 +67,10 @@ class FinanceDepartment implements INotifyable {
   }
 }
 //#endregion
-const me = new Vendor<Legal>('USD', 0, new FinanceDepartment())
+const me = new Vendor<Legal>('USD', 0, new Government())
 const you = new Vendor<'🐰'>('RMB', 0, new FinanceDepartment())
 
-const superman = new (superVendor<typeof Vendor, '💰'>(Vendor))<'💰'>('RMB', 200, new FinanceDepartment())
+const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 200, new FinanceDepartment())
 
 me.pick = '👑'
 me.pick = '🐰'
@@ -82,5 +80,6 @@ you.pick = '🐰'
 you.pick = '🐰'
 
 superman.pick = '💰'
+superman.pick = '👑'
 console.log(superman.getItems())
-console.log(...superman)
+console.log(...superman, 1)
