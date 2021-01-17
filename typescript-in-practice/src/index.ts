@@ -67,9 +67,10 @@ class FinanceDepartment implements INotifyable {
 const me = new Vendor<Legal>('USD', 0, new FinanceDepartment())
 const you = new Vendor<'🐰'>('RMB', 0, new FinanceDepartment())
 
-const superman = new (superVendor(Vendor))<'💰'>('RMB', 200, new FinanceDepartment())
+const superman = new (superVendor<typeof Vendor, '💰'>(Vendor))<'💰'>('RMB', 200, new FinanceDepartment())
 
-me.pick = me.pick = '🐰'
+me.pick = '👑'
+me.pick = '🐰'
 me.pick = '💎'
 
 you.pick = '🐰'
