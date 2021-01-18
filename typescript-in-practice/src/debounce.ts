@@ -6,3 +6,7 @@ export function debounce(delay: number): (...args: any[]) => void {
     }, delay)
   }
 }
+
+export function Events(type : 'X2'|"X4"|"X8"){
+
+}

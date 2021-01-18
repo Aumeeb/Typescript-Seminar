@@ -59,6 +59,9 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
 class Government implements INotifyable {
   notify(citizen: Vendor) {
     console.log('🍁', ...citizen)
+    for (const iterator of citizen) {
+         iterator
+    }
   }
 }
 class FinanceDepartment implements INotifyable {

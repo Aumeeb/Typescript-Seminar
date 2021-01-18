@@ -1,3 +1,4 @@
+import bouns from './data/bouns'
 export type Nature = {symbol: string; price: number}
 export type ExtractSpecificValueFromArray<
   T extends readonly P[],
@@ -14,3 +15,5 @@ interface Item<T = unknown> {
 interface Certification<A> {
   cert: A
 }
+
+type BounsRate = `x${typeof bouns[number]}`
