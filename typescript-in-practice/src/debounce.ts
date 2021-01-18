@@ -10,13 +10,10 @@ export function debounce(delay: number): (...args: any[]) => void {
   }
 }
 
-export function Events<T extends Human>(type: BounsRate): Function {
-  return (target: T, name: string,parameterIndex:number) => {
-    //   Reflect.getme
-    console.dir(target)
-     console.dir(name)
-     console.dir(parameterIndex)
+export function events<T extends Human>(type: BounsRate): Function {
+  return (target: T, key: string) => {
     let scale = 0
+    let localValue: number = 0
     if (type === 'x1.5') {
       scale = 1.5
     }
@@ -26,9 +23,13 @@ export function Events<T extends Human>(type: BounsRate): Function {
     if (type === 'x16') {
       scale = 16
     }
-    target['cash'] *= scale
-
-    console.log(target["cash"]);
-    
+    Reflect.defineProperty(target, key, {
+      set(value) {
+        localValue = value * scale
+      },
+      get() {
+        return localValue
+      },
+    })
   }
 }

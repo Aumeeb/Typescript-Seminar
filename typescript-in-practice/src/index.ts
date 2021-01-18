@@ -1,7 +1,7 @@
 import bouns from './data/bouns'
 import ecosystem from './data/ecosystem'
 import treasure from './data/treasure'
-import {Events} from './debounce'
+import {events} from './debounce'
 import type {Currency, ExtractSpecificValueFromArray, Item, Nature} from './types'
 
 console.clear()
@@ -34,9 +34,13 @@ class Vendor<T = Alive> extends Human<T> {
     for (let i = 0; i < this.length; i++) yield this.items[i]
   }
   protected gov: INotifyable
-  constructor(protected currency: Currency, @Events('x16') protected cash: number = 100, gov: INotifyable) {
+
+//   @events()
+  protected cash: number
+  constructor(protected currency: Currency, cash: number = 100, gov: INotifyable) {
     super()
     this.gov = gov
+    this.cash = cash
   }
   public set pick(item: T) {
     this.items.push(item)
@@ -86,5 +90,5 @@ you.pick = '🐰'
 
 superman.pick = '💰'
 superman.pick = '👑'
-console.log(superman['cash'])
-console.log(me['cash'])
+
+console.log('me', me['cash'])
