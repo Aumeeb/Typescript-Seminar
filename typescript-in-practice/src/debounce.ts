@@ -25,6 +25,8 @@ export function events<T extends Human>(type: BounsRate): Function {
     }
     Reflect.defineProperty(target, key, {
       set(value) {
+        console.log('set', value)
+
         localValue = value * scale
       },
       get() {

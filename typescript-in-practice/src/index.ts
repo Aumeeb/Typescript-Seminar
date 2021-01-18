@@ -35,7 +35,7 @@ class Vendor<T = Alive> extends Human<T> {
   }
   protected gov: INotifyable
 
-  @events("x16")
+  @events('x16')
   protected cash: number
   constructor(protected currency: Currency, cash: number = 100, gov: INotifyable) {
     super()
@@ -76,19 +76,20 @@ class FinanceDepartment implements INotifyable {
   }
 }
 //#endregion
-const me = new Vendor<Legal>('USD', 100, new Government())
-const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
+const me = new Vendor<Legal>('USD', 2000, new Government())
+// const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
-const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 200, new FinanceDepartment())
+const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 10000, new FinanceDepartment())
 
 me.pick = '👑'
 me.pick = '🐰'
 me.pick = '💎'
 
-you.pick = '🐰'
-you.pick = '🐰'
+// you.pick = '🐰'
+// you.pick = '🐰'
 
-superman.pick = '💰'
-superman.pick = '👑'
+// superman.pick = '💰'
+// superman.pick = '👑'
 
-console.log('me', me['cash'])
+console.log(me['cash'], 'me')
+console.log(superman['cash'], 'superman')
