@@ -35,7 +35,7 @@ class Vendor<T = Alive> extends Human<T> {
   }
   protected gov: INotifyable
 
-  //   @events()
+  @events("x16")
   protected cash: number
   constructor(protected currency: Currency, cash: number = 100, gov: INotifyable) {
     super()
