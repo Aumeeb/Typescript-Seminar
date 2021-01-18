@@ -12,6 +12,8 @@ export function debounce(delay: number): (...args: any[]) => void {
 
 export function Events<T extends Human>(type: BounsRate): Function {
   return (target: T, name: string) => {
+    console.log(target, name)
+
     let scale = 0
     if (type === 'x1.5') {
       scale = 1.5

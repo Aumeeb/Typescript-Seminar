@@ -72,8 +72,8 @@ class FinanceDepartment implements INotifyable {
   }
 }
 //#endregion
-const me = new Vendor<Legal>('USD', 0, new Government())
-const you = new Vendor<'🐰'>('RMB', 0, new FinanceDepartment())
+const me = new Vendor<Legal>('USD', 100, new Government())
+const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
 const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 200, new FinanceDepartment())
 
@@ -86,5 +86,5 @@ you.pick = '🐰'
 
 superman.pick = '💰'
 superman.pick = '👑'
-console.log(superman.getItems())
-console.log(...superman, 1)
+console.log(superman['cash'])
+console.log(me['cash'])
