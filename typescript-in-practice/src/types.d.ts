@@ -15,5 +15,4 @@ interface Item<T = unknown> {
 interface Certification<A> {
   cert: A
 }
-
 type BounsRate = `x${typeof bouns[number]}`

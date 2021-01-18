@@ -1,3 +1,6 @@
+import {Human} from '.'
+import {BounsRate} from './types'
+
 export function debounce(delay: number): (...args: any[]) => void {
   return () => {
     // todo
@@ -7,6 +10,18 @@ export function debounce(delay: number): (...args: any[]) => void {
   }
 }
 
-export function Events(type : 'X2'|"X4"|"X8"){
-
+export function Events<T extends Human>(type: BounsRate): Function {
+  return (target: T, name: string) => {
+    let scale = 0
+    if (type === 'x1.5') {
+      scale = 1.5
+    }
+    if (type === 'x2') {
+      scale = 2
+    }
+    if (type === 'x16') {
+      scale = 16
+    }
+    target['cash'] *= scale
+  }
 }

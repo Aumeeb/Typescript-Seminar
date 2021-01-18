@@ -1,5 +1,7 @@
+import bouns from './data/bouns'
 import ecosystem from './data/ecosystem'
 import treasure from './data/treasure'
+import {Events} from './debounce'
 import type {Currency, ExtractSpecificValueFromArray, Item, Nature} from './types'
 
 console.clear()
@@ -12,7 +14,7 @@ interface INotifyable {
   notify(citizen: Human): void
 }
 //#endregion
-abstract class Human<T = unknown> implements Item<T> {
+export abstract class Human<T = unknown> implements Item<T> {
   get length() {
     return this.items.length
   }
@@ -32,7 +34,7 @@ class Vendor<T = Alive> extends Human<T> {
     for (let i = 0; i < this.length; i++) yield this.items[i]
   }
   protected gov: INotifyable
-  constructor(protected currency: Currency, protected cash: number = 100, gov: INotifyable) {
+  constructor(protected currency: Currency, @Events('x16') protected cash: number = 100, gov: INotifyable) {
     super()
     this.gov = gov
   }
@@ -60,7 +62,7 @@ class Government implements INotifyable {
   notify(citizen: Vendor) {
     console.log('🍁', ...citizen)
     for (const iterator of citizen) {
-         iterator
+      iterator
     }
   }
 }
