@@ -39,7 +39,7 @@ export class Vendor<T = Alive> extends Human<T> {
   constructor(protected currency: Currency, cash: number = 100, gov: INotifyable) {
     super()
     this.gov = gov
-    this.cash = cash
+    this.cash = ~~cash ^ 0
   }
   public set pick(item: T) {
     this.items.push(item)
@@ -75,8 +75,6 @@ class FinanceDepartment implements INotifyable {
   }
 }
 //#endregion
-
-
 
 const me = new Vendor<Legal>('USD', 100.121, new Government())
 const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
