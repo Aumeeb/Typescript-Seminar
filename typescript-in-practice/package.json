@@ -15,6 +15,6 @@
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "window": "nodemon --watch 'src/**/*.ts' --exec ts-node src/index.ts"
   },
-  "author": "",
+  "author": "andrew",
   "license": "ISC"
 }

@@ -13,6 +13,6 @@
     "start": "live-server",
     "compile": "tsc ./src/index.ts -w"
   },
-  "author": "",
+  "author": "andrew",
   "license": "ISC"
 }
