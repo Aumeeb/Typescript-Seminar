@@ -1,4 +1,3 @@
-import bouns from './data/bouns'
 import ecosystem from './data/ecosystem'
 import treasure from './data/treasure'
 import {events} from './debounce'
@@ -29,13 +28,13 @@ export abstract class Human<T = unknown> implements Item<T> {
   protected abstract currency: Currency
 }
 
-class Vendor<T = Alive> extends Human<T> {
+export class Vendor<T = Alive> extends Human<T> {
   *[Symbol.iterator]() {
     for (let i = 0; i < this.length; i++) yield this.items[i]
   }
   protected gov: INotifyable
 
-  @events('x16')
+  @events('x1.5')
   protected cash: number
   constructor(protected currency: Currency, cash: number = 100, gov: INotifyable) {
     super()
@@ -77,7 +76,7 @@ class FinanceDepartment implements INotifyable {
 }
 //#endregion
 const me = new Vendor<Legal>('USD', 2000, new Government())
-// const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
+const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
 const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 10000, new FinanceDepartment())
 
@@ -93,3 +92,4 @@ me.pick = '💎'
 
 console.log(me['cash'], 'me')
 console.log(superman['cash'], 'superman')
+console.log(you['cash'])

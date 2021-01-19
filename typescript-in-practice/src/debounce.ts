@@ -1,4 +1,4 @@
-import {Human} from '.'
+import {Human, Vendor} from '.'
 import {BounsRate} from './types'
 
 export function debounce(delay: number): (...args: any[]) => void {
@@ -11,9 +11,9 @@ export function debounce(delay: number): (...args: any[]) => void {
 }
 
 export function events<T extends Human>(type: BounsRate): Function {
+  var weakMap = new Map<{}, number>()
   return (target: T, key: string) => {
     let scale = 0
-    let localValue: number = 0
     if (type === 'x1.5') {
       scale = 1.5
     }
@@ -25,12 +25,10 @@ export function events<T extends Human>(type: BounsRate): Function {
     }
     Reflect.defineProperty(target, key, {
       set(value) {
-        console.log('set', value)
-
-        localValue = value * scale
+        weakMap.set(this, value * scale)
       },
       get() {
-        return localValue
+        return weakMap.get(this) || 0
       },
     })
   }
