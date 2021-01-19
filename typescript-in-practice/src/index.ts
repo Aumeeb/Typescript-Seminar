@@ -9,7 +9,7 @@ type Ecosystem = ExtractSpecificValueFromArray<typeof ecosystem, Nature>
 type Treasure = ExtractSpecificValueFromArray<typeof treasure, Nature>
 type Alive = Extract<Ecosystem, '🐰' | '🐡'>
 type Legal = Alive | Treasure
-interface INotifyable {
+interface INotifiable {
   notify(citizen: Human): void
 }
 //#endregion
@@ -32,11 +32,11 @@ export class Vendor<T = Alive> extends Human<T> {
   *[Symbol.iterator]() {
     for (let i = 0; i < this.length; i++) yield this.items[i]
   }
-  protected gov: INotifyable
+  protected gov: INotifiable
 
   @events('x1.5')
   protected cash: number
-  constructor(protected currency: Currency, cash: number = 100, gov: INotifyable) {
+  constructor(protected currency: Currency, cash: number = 100, gov: INotifiable) {
     super()
     this.gov = gov
     this.cash = ~~cash ^ 0
@@ -61,7 +61,7 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
   }
 
 //#region  gov
-class Government implements INotifyable {
+class Government implements INotifiable {
   notify(citizen: Vendor) {
     console.log('🍁', ...citizen)
     for (const iterator of citizen) {
@@ -69,7 +69,7 @@ class Government implements INotifyable {
     }
   }
 }
-class FinanceDepartment implements INotifyable {
+class FinanceDepartment implements INotifiable {
   notify(citizen: Vendor) {
     console.log('🏵️', citizen.length)
   }
