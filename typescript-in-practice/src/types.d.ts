@@ -1,5 +1,6 @@
 import bouns from './data/bouns'
 export type Nature = {symbol: string; price: number}
+export type Arbitrary<T> = (...args: any[]) => T
 export type ExtractSpecificValueFromArray<
   T extends readonly P[],
   P extends object,
