@@ -5,3 +5,4 @@ export = [
   {symbol: '🧱', price: 5},
   {symbol: '💰', price: 100},
 ] as const
+// metadata for the system

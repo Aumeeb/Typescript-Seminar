@@ -8,5 +8,4 @@ export = [
   {symbol: '🐡', price: 15},
   {symbol: '🐰', price: 33, quantity: 300},
 ] as const
-
- 
+// metadata for the system
