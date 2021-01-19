@@ -13,17 +13,17 @@ export function debounce(delay: number): (...args: any[]) => void {
 export function events<T extends Human>(type: BounsRate): Arbitrary<void> {
   var weakMap = new Map<{}, number>()
   return (target: T, key: string) => {
-    let scale = 0
+    let scale: number
     if (type === 'x1.5') scale = 1.5
     if (type === 'x2') scale = 2
     if (type === 'x16') scale = 16
 
     Reflect.defineProperty(target, key, {
       set(value) {
-        weakMap.set(this, value * scale)
+        weakMap.set(this, ~~(scale * value))
       },
       get() {
-        return weakMap.get(this) || 0
+        return weakMap.get(this) ?? 0
       },
     })
   }

@@ -75,7 +75,10 @@ class FinanceDepartment implements INotifyable {
   }
 }
 //#endregion
-const me = new Vendor<Legal>('USD', 100, new Government())
+
+
+
+const me = new Vendor<Legal>('USD', 100.121, new Government())
 const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
 const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
