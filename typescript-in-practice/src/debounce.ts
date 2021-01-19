@@ -14,15 +14,10 @@ export function events<T extends Human>(type: BounsRate): Function {
   var weakMap = new Map<{}, number>()
   return (target: T, key: string) => {
     let scale = 0
-    if (type === 'x1.5') {
-      scale = 1.5
-    }
-    if (type === 'x2') {
-      scale = 2
-    }
-    if (type === 'x16') {
-      scale = 16
-    }
+    if (type === 'x1.5') scale = 1.5
+    if (type === 'x2') scale = 2
+    if (type === 'x16') scale = 16
+
     Reflect.defineProperty(target, key, {
       set(value) {
         weakMap.set(this, value * scale)
