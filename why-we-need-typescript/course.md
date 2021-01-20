@@ -10,6 +10,8 @@
 
 ## ts 类型申明
 
+## defer property
+
 ## 重构
 
 # PPT 大纲
