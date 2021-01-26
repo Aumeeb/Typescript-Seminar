@@ -1,4 +1,4 @@
-import bouns from './data/bouns'
+import bonus from './data/bonus'
 export type Nature = {symbol: string; price: number}
 export type Arbitrary<T> = (...args: any[]) => T
 export type ExtractSpecificValueFromArray<
@@ -7,7 +7,7 @@ export type ExtractSpecificValueFromArray<
   K extends keyof P = 'symbol'
 > = T[number][K] extends infer R ? (R extends number | string ? R : 'Lack of properties') : never
 export type Currency = 'USD' | 'RMB'
-type Credentiall = number | string
+type Credentials = number | string
 
 interface Item<T = unknown> {
   getItems(): T[]
@@ -16,4 +16,4 @@ interface Item<T = unknown> {
 interface Certification<A> {
   cert: A
 }
-type BounsRate = `x${typeof bouns[number]}`
+type BonusRate = `x${typeof bonus[number]}`

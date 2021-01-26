@@ -1,5 +1,5 @@
 import {Human, Vendor} from '.'
-import {Arbitrary, BounsRate} from './types'
+import {Arbitrary, BonusRate} from './types'
 
 export function debounce(delay: number): (...args: any[]) => void {
   return () => {
@@ -11,7 +11,7 @@ export function debounce(delay: number): (...args: any[]) => void {
 }
 
 /** Game Events which increases the Human cash by bouns rate. */
-export function events<T extends Human>(type: BounsRate): Arbitrary<void> {
+export function events<T extends Human>(type: BonusRate): Arbitrary<void> {
   var weakMap = new Map<{}, number>()
   return (target: T, key: string) => {
     let scale: number
