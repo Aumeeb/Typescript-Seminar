@@ -62,7 +62,7 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
 
 //#region  gov
 class Government implements INotifiable {
-  public static INSTANCE = new Government()
+  public static readonly INSTANCE = new Government()
   notify(citizen: Vendor) {
     console.log('🍁', ...citizen)
     for (const iterator of citizen) {
