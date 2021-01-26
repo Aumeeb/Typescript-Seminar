@@ -13,7 +13,7 @@ interface INotifiable {
   notify(citizen: Human): void
 }
 //#endregion
-export abstract class Human<T = unknown> implements Item<T> {
+export abstract class Human<T = unknown, C = unknown> implements Item<T> {
   get length() {
     return this.items.length
   }
@@ -25,10 +25,10 @@ export abstract class Human<T = unknown> implements Item<T> {
   //first step1
   //base class for all human
   protected abstract cash: number // default cash for human character
-  protected abstract currency: Currency
+  protected abstract currency: C
 }
 
-export class Vendor<T = Alive> extends Human<T> {
+export class Vendor<T = Alive, C extends Currency | string = Currency> extends Human<T, C> {
   *[Symbol.iterator]() {
     for (let i = 0; i < this.length; i++) yield this.items[i]
   }
@@ -36,7 +36,7 @@ export class Vendor<T = Alive> extends Human<T> {
 
   @events('x1.5')
   protected cash: number
-  constructor(protected currency: Currency, cash: number = 100, gov: INotifiable) {
+  constructor(protected currency: C, cash: number = 100, gov: INotifiable) {
     super()
     this.gov = gov
     this.cash = ~~cash
@@ -78,7 +78,7 @@ class FinanceDepartment implements INotifiable {
 }
 //#endregion
 
-const me = new Vendor<Legal>('USD', 100.121, Government.INSTANCE)
+const me = new Vendor<Legal,"$">("$", 100.121, Government.INSTANCE)
 const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
 const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())

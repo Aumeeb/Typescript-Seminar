@@ -10,6 +10,7 @@ export function debounce(delay: number): (...args: any[]) => void {
   }
 }
 
+/** Game Events which increases the Human cash by bouns rate. */
 export function events<T extends Human>(type: BounsRate): Arbitrary<void> {
   var weakMap = new Map<{}, number>()
   return (target: T, key: string) => {
