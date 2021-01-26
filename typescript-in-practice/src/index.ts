@@ -39,7 +39,7 @@ export class Vendor<T = Alive> extends Human<T> {
   constructor(protected currency: Currency, cash: number = 100, gov: INotifiable) {
     super()
     this.gov = gov
-    this.cash = ~~cash ^ 0
+    this.cash = ~~cash
   }
   public set pick(item: T) {
     this.items.push(item)
@@ -62,12 +62,14 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
 
 //#region  gov
 class Government implements INotifiable {
+  public static INSTANCE = new Government()
   notify(citizen: Vendor) {
     console.log('🍁', ...citizen)
     for (const iterator of citizen) {
       iterator
     }
   }
+  private constructor() {}
 }
 class FinanceDepartment implements INotifiable {
   notify(citizen: Vendor) {
@@ -76,7 +78,7 @@ class FinanceDepartment implements INotifiable {
 }
 //#endregion
 
-const me = new Vendor<Legal>('USD', 100.121, new Government())
+const me = new Vendor<Legal>('USD', 100.121, Government.INSTANCE)
 const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
 const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
