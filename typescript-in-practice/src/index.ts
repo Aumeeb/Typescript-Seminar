@@ -9,6 +9,7 @@ type Ecosystem = ExtractSpecificValueFromArray<typeof ecosystem, Nature>
 type Treasure = ExtractSpecificValueFromArray<typeof treasure, Nature>
 type Alive = Extract<Ecosystem, '🐰' | '🐡'>
 type Legal = Alive | Treasure
+
 interface INotifiable {
   notify(citizen: Human): void
 }
@@ -78,7 +79,7 @@ class FinanceDepartment implements INotifiable {
 }
 //#endregion
 
-const me = new Vendor<Legal,"$">("$", 100.121, Government.INSTANCE)
+const me = new Vendor<Legal, '$'>('$', 100.121, Government.INSTANCE)
 const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
 const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
