@@ -1,4 +1,4 @@
-import {Human, Vendor} from '.'
+import {Human} from '.'
 import {Arbitrary, BonusRate} from './types'
 
 export function debounce(delay: number): (...args: any[]) => void {
