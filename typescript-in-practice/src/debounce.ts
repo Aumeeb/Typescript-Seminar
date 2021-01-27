@@ -46,7 +46,6 @@ export function events<T extends Human>(type: BonusRate): Arbitrary<void> {
 
 export function load(val: number) {
   return (target: any, key: string, index: number) => {
-
     target.prototype.cashes = val
     console.log(target.prototype, `the class has been instantiated`)
     console.log(target.cash)

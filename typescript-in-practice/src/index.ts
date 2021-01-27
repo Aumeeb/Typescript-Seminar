@@ -38,7 +38,7 @@ export class Vendor<T = Alive, C extends Currency | string = Currency> extends H
 
   @events('x16')
   protected cash: number
-  constructor(protected currency: C, @deposit(100000) cash:number, gov: INotifiable) {
+  constructor(protected currency: C, @deposit(100000) cash: number, gov: INotifiable) {
     super()
     this.gov = gov
     this.cash = ~~cash
@@ -81,19 +81,20 @@ class FinanceDepartment implements INotifiable {
 }
 //#endregion
 
-const me: any = new Vendor<Legal, '$'>('$', 1200.121, Government.INSTANCE)
-// const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
-console.log(me['cashes'])
+const me = new Vendor<Legal, '$'>('$', 1200.121, Government.INSTANCE)
+const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 
-// const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
+const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
 
-// me.pick = '👑'
-// me.pick = '👑'
-// me.pick = '👑'
-// me.pick = '🐰'
-// me.pick = '💎'
-// console.log('~~~', me)
-
+me.pick = '👑'
+me.pick = '👑'
+me.pick = '👑'
+me.pick = '🐰'
+me.pick = '💎'
+console.log('~~~', me)
+setTimeout(() => {
+  me.pick = '💎'
+}, 1200)
 // you.pick = '🐰'
 // you.pick = '🐰'
 
