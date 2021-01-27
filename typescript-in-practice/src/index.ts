@@ -44,6 +44,8 @@ export class Vendor<T = Alive, C extends Currency | string = Currency> extends H
   }
   @throttle()
   public set pick(item: T) {
+    console.log('vendor', item)
+
     this.items.push(item)
     this.gov.notify(this)
   }
@@ -84,8 +86,11 @@ const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
 const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
 
 me.pick = '👑'
+me.pick = '👑'
+me.pick = '👑'
 me.pick = '🐰'
 me.pick = '💎'
+console.log('~~~', me)
 
 // you.pick = '🐰'
 // you.pick = '🐰'
@@ -93,6 +98,6 @@ me.pick = '💎'
 // superman.pick = '💰'
 // superman.pick = '👑'
 
-console.log(me['cash'], 'me')
-console.log(superman['cash'], 'superman')
-console.log(you['cash'])
+// console.log(me['cash'], 'me')
+// console.log(superman['cash'], 'superman')
+// console.log(you['cash'])

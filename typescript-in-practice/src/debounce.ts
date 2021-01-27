@@ -1,4 +1,4 @@
-import {Human} from '.'
+import {Human, Vendor} from '.'
 import {Arbitrary, BonusRate} from './types'
 
 export function debounce(delay: number): (...args: any[]) => void {
@@ -9,11 +9,18 @@ export function debounce(delay: number): (...args: any[]) => void {
     }, delay)
   }
 }
-export function throttle(delay: number = 1000): (...args: any[]) => void {
-  return (a, b, c) => {
-    console.log(a, b, c)
-
-    // todo
+export function throttle<T extends Vendor>(delay: number = 1000): (...args: any[]) => void {
+  // todo
+  let last = 0
+  return (target: T, key: string, descriptor: PropertyDescriptor) => {
+    descriptor.set = function (value) {
+      const now = new Date().getTime()
+      if (now - last < delay) return
+      last = now
+      let vendor: T = this as T
+      vendor['items'].push(value)
+      vendor['gov'].notify(vendor)
+    }
   }
 }
 
@@ -31,7 +38,7 @@ export function events<T extends Human>(type: BonusRate): Arbitrary<void> {
         weakMap.set(this, ~~(scale * value))
       },
       get() {
-        return weakMap.get(this) ?? 0
+        return weakMap.get(this) || 0
       },
     })
   }
