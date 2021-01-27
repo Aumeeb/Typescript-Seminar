@@ -1,6 +1,6 @@
 import ecosystem from './data/ecosystem'
 import treasure from './data/treasure'
-import {events, throttle} from './debounce'
+import {events, load as deposit, moderate} from './debounce'
 import type {Currency, ExtractSpecificValueFromArray, Item, Nature} from './types'
 
 console.clear()
@@ -28,6 +28,7 @@ export abstract class Human<T = unknown, C = unknown> implements Item<T> {
   protected abstract cash: number // default cash for human character
   protected abstract currency: C
 }
+console.log(`start`)
 
 export class Vendor<T = Alive, C extends Currency | string = Currency> extends Human<T, C> {
   *[Symbol.iterator]() {
@@ -35,14 +36,14 @@ export class Vendor<T = Alive, C extends Currency | string = Currency> extends H
   }
   protected gov: INotifiable
 
-  @events('x1.5')
+  @events('x16')
   protected cash: number
-  constructor(protected currency: C, cash: number = 100, gov: INotifiable) {
+  constructor(protected currency: C, @deposit(100000) cash:number, gov: INotifiable) {
     super()
     this.gov = gov
     this.cash = ~~cash
   }
-  @throttle()
+  @moderate()
   public set pick(item: T) {
     console.log('vendor', item)
 
@@ -80,17 +81,18 @@ class FinanceDepartment implements INotifiable {
 }
 //#endregion
 
-const me = new Vendor<Legal, '$'>('$', 100.121, Government.INSTANCE)
-const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
+const me: any = new Vendor<Legal, '$'>('$', 1200.121, Government.INSTANCE)
+// const you = new Vendor<'🐰'>('RMB', 100, new FinanceDepartment())
+console.log(me['cashes'])
 
-const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
+// const superman = new (superVendor<typeof Vendor, Legal>(Vendor))<Legal>('RMB', 1000, new FinanceDepartment())
 
-me.pick = '👑'
-me.pick = '👑'
-me.pick = '👑'
-me.pick = '🐰'
-me.pick = '💎'
-console.log('~~~', me)
+// me.pick = '👑'
+// me.pick = '👑'
+// me.pick = '👑'
+// me.pick = '🐰'
+// me.pick = '💎'
+// console.log('~~~', me)
 
 // you.pick = '🐰'
 // you.pick = '🐰'
@@ -101,3 +103,4 @@ console.log('~~~', me)
 // console.log(me['cash'], 'me')
 // console.log(superman['cash'], 'superman')
 // console.log(you['cash'])
+console.log(`end`)
