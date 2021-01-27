@@ -66,9 +66,6 @@ class Government implements INotifiable {
   public static readonly INSTANCE = new Government()
   notify(citizen: Vendor) {
     console.log('🍁', ...citizen)
-    for (const iterator of citizen) {
-      iterator
-    }
   }
   private constructor() {}
 }
