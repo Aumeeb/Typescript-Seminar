@@ -9,6 +9,13 @@ export function debounce(delay: number): (...args: any[]) => void {
     }, delay)
   }
 }
+export function throttle(delay: number = 1000): (...args: any[]) => void {
+  return (a, b, c) => {
+    console.log(a, b, c)
+
+    // todo
+  }
+}
 
 /** Game Events which increases the Human cash by bonus rate. */
 export function events<T extends Human>(type: BonusRate): Arbitrary<void> {

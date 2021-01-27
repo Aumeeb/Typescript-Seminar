@@ -1,6 +1,6 @@
 import ecosystem from './data/ecosystem'
 import treasure from './data/treasure'
-import {events} from './debounce'
+import {events, throttle} from './debounce'
 import type {Currency, ExtractSpecificValueFromArray, Item, Nature} from './types'
 
 console.clear()
@@ -42,6 +42,7 @@ export class Vendor<T = Alive, C extends Currency | string = Currency> extends H
     this.gov = gov
     this.cash = ~~cash
   }
+  @throttle()
   public set pick(item: T) {
     this.items.push(item)
     this.gov.notify(this)
@@ -52,6 +53,7 @@ const superVendor = <T extends new (...args: any[]) => Vendor<S>, S>(Base: T) =>
     constructor(...arg: any[]) {
       super(...arg)
     }
+
     cleanUp(): void {
       this.items = []
     }
