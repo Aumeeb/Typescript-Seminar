@@ -14,3 +14,7 @@ let genericArray2: [1, 2] = [1, 2]
 let variety = [1, 'number', 1n]
 const action: () => void = () => void 0
 const o: {} = {}
+
+
+// typeof null
+//思考 null 是什么类型?
