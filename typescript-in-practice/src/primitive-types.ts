@@ -18,3 +18,8 @@ const o: {} = {}
 
 // typeof null
 //思考 null 是什么类型?
+
+// if(null === null){
+//     console.log(`primitive type`);
+// }
+
