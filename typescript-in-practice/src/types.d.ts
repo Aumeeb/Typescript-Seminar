@@ -13,7 +13,4 @@ interface Item<T = unknown> {
   getItems(): T[]
   length: number
 }
-interface Certification<A> {
-  cert: A
-}
 type BonusRate = `x${typeof bonus[number]}`
